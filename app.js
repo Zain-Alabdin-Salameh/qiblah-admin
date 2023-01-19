@@ -24,9 +24,16 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api', usersRouter);
+app.use(session({
+  secret: process.env.SESSION_SECRET??"session123",
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: true ,maxAge: 3600000 }
+}));
 
 app.use('/', indexRouter);
-app.use('/api', usersRouter);
+
 
 
 // catch 404 and forward to error handler
@@ -34,12 +41,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.use(session({
-  secret: process.env.SESSION_SECRET??"session123",
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true ,maxAge: 3600000 }
-}));
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
