@@ -19,5 +19,6 @@
   },
   "devDependencies": {
     "prisma": "^4.8.1"
-  }
+  },
+  "engines": { "node": "16.x" }
 }
