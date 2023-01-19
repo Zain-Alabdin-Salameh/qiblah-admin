@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Qiblah</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	
+	<link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=zh-TW"></script>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+	</head>
+	<body>
+		<div class="landing">
+			<div class="overlay">
+
+	
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Qiblah Admin</h2>
+				</div>
+			</div>
+			<div class="row" style="width: 70%; justify-content: center;">
+				<div class="col-md-2">
+					<div class="table-wrap">
+						<table class="table table-bordered table-light table-hover">
+						  <thead>
+						    <tr>
+						      <th>UUID</th>
+						      <th>Last_check</th>
+							  <th>Location</th>
+						   
+						    </tr>
+						  </thead>
+						  <tbody>
+						    
+						
+						   
+						    </tr>
+						    <% for(const obj of data){ %>
+								
+								<tr>
+								
+								 <td><%= obj['uuid'] %></td>
+								 <td><%= obj['date'] %></td>
+								 <td>
+									<svg id="buttonID" onclick="ShowMap(<%= obj['lat'] %>,<%= obj['lon'] %>)" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="gray" version="1.1" id="Capa_1" width="50px" height="30px" viewBox="0 0 395.71 395.71" xml:space="preserve">
+									<g>
+										<path d="M197.849,0C122.131,0,60.531,61.609,60.531,137.329c0,72.887,124.591,243.177,129.896,250.388l4.951,6.738   c0.579,0.792,1.501,1.255,2.471,1.255c0.985,0,1.901-0.463,2.486-1.255l4.948-6.738c5.308-7.211,129.896-177.501,129.896-250.388   C335.179,61.609,273.569,0,197.849,0z M197.849,88.138c27.13,0,49.191,22.062,49.191,49.191c0,27.115-22.062,49.191-49.191,49.191   c-27.114,0-49.191-22.076-49.191-49.191C148.658,110.2,170.734,88.138,197.849,88.138z"/>
+									</g>
+									</svg>
+								</td>
+								</tr>
+							   <% } %> 
+						  </tbody>
+						</table>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</div>
+</div>
+
+
+<div  id="map"></div>
+<button onclick="HideMap()" style="display: none;" id="Close" type="button" class="btn close"
+data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">×</span>
+</button>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" defer></script>
+<script src="js/main.js"></script>
+
+	</body>
+
+</html>
+
