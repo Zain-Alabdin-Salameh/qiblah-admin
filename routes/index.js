@@ -91,8 +91,8 @@ router.get("/setup", async function (req, res, next) {
   if (admin.length>0) {
     res.redirect("/login");
   } else {
-    let pass=bcrypt.hash(process.env.ADMIN_PASS,10);
-    const newAdmin=prisma.admin.create({data:{
+    let pass=await bcrypt.hash(process.env.ADMIN_PASS,10);
+    const newAdmin= await prisma.admin.create({data:{
       email:process.env.ADMIN_EMAIL,
       password:pass
     }});
