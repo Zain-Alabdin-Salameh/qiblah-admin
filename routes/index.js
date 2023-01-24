@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const Prisma = require("@prisma/client");
 const prisma = new Prisma.PrismaClient();
-
+const bcrypt = require('bcrypt');
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   console.log(req.session.userId);
@@ -31,7 +31,8 @@ router.post("/login", async function (req, res) {
       if (!user) {
         res.send("Incorrect Email Address");
       } else {
-        if (user.password === password) {
+        const correctPass=await bcrypt.compare(password, user.password);
+        if (correctPass) {
           console.log(req.session);
           // req.session.save()
           req.session.userId = user.id;
@@ -82,6 +83,23 @@ router.post("/changepassword", async function (req, res, next) {
     } catch (error) {
       res.redirect("/login");
     }
+  }
+});
+router.get("/setup", async function (req, res, next) {
+  try {
+    let admin= await prisma.admin.findMany();
+  if (admin.length>0) {
+    res.redirect("/login");
+  } else {
+    let pass=bcrypt.hash(process.env.ADMIN_PASS,10);
+    const newAdmin=prisma.admin.create({data:{
+      email:process.env.ADMIN_EMAIL,
+      password:pass
+    }});
+    res.redirect("/login");
+  }
+  } catch (error) {
+    res.send(error);
   }
 });
 module.exports = router;
